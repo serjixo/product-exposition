@@ -15,7 +15,7 @@ export default function CustomButton(props) {
     return (
         <button
             className={`px-2 py-1 flex-1 rounded-md ${props.customStyles}`}
-            {...props}
+
             style={generateStyle(props.type)}
             onClick={props.handleClick}
         >
