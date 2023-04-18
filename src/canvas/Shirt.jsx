@@ -13,8 +13,6 @@ export default function Shirt() {
     const fullTexture = useTexture(snap.fullDecal)
     useFrame((state, delta) => {
             easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
-        console.log(materials.lambert1.color, snap.color)
-        // debugger;
         }
     )
 

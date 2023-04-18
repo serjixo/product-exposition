@@ -6,9 +6,32 @@ import Tab from "../components/Tab.jsx";
 import {EditorTabs, FilterTabs} from "../config/constants.js";
 import CustomButton from "../components/CustomButton.jsx";
 import CanvasModel from "../canvas/CanvasModel.jsx";
+import {useState} from "react";
+import ColorPicker from "../components/ColorPicker.jsx";
+import FilePicker from "../components/FilePicker.jsx";
+import AiPicker from "../components/AiPicker.jsx";
 
 export default function Customizer() {
     let snapshot = useSnapshot(state);
+
+    const [file, setFile] = useState('');
+    const [prompt, setPrompt] = useState('');
+    const [generatingImg, setGeneratingImg] = useState(false);
+
+    const [activeFilterTab, setActiveFilterTab] = useState('');
+    const [activeEditorTab, setActiveEditorTab] = useState('');
+    const generateTabContent = () => {
+        switch (activeEditorTab) {
+            case 'colorpicker':
+                return <ColorPicker/>
+            case 'filepicker':
+                return <FilePicker/>
+            case 'aipicker':
+                return <AiPicker/>
+            default:
+                return null
+        }
+    }
     return (
         <AnimatePresence>
             {!snapshot.intro && (<>
@@ -23,12 +46,12 @@ export default function Customizer() {
                                             <Tab
                                                 key={tab.name}
                                                 tab={tab}
-                                                handleClick={() => {
-                                                }}
+                                                handleClick={() => setActiveEditorTab(tab.name)}
                                             />
                                         )
                                     )
                                 }
+                                {generateTabContent()}
                             </div>
                         </div>
 
@@ -53,6 +76,7 @@ export default function Customizer() {
                                         key={tab.name}
                                         tab={tab}
                                         handleClick={() => {
+
                                         }}
                                         isActiveTab={''}
                                     />
