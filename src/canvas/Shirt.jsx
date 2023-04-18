@@ -12,13 +12,14 @@ export default function Shirt() {
     const logoTexture = useTexture(snap.logoDecal)
     const fullTexture = useTexture(snap.fullDecal)
     useFrame((state, delta) => {
-        easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
-    })
+            easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
+        console.log(materials.lambert1.color, snap.color)
+        // debugger;
+        }
+    )
 
     useEffect(() => {
-        console.log(nodes)
-        console.log(materials)
-        console.log('====================')
+
         return () => {
 
         };
@@ -30,8 +31,8 @@ export default function Shirt() {
         <group
             key={stateString}>
             <mesh
+                castShadow
                 geometry={nodes.T_Shirt_male.geometry}
-                dispose={null}
                 material={materials.lambert1}
                 material-roughness={1}
                 dispose={null}
@@ -50,9 +51,9 @@ export default function Shirt() {
                 }
                 {snap.isLogoTexture && (
                     <Decal
-                        position={[0, 0.04, 0]}
+                        position={[0, 0.04, 0.15]}
                         rotation={[0, 0, 0]}
-                        scale={1}
+                        scale={0.15}
                         map={logoTexture}
                         map-anisotropy={16}
                         depthTest={false}
@@ -61,7 +62,6 @@ export default function Shirt() {
 
                 )
                 }
-                <meshStandardMaterial/>
             </mesh>
         </group>
         // <primitive object={nodes.scene}/>
