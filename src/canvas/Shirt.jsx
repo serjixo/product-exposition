@@ -2,6 +2,8 @@ import {useSnapshot} from "valtio";
 import state from "../store/Store.jsx";
 import {Decal, useGLTF, useTexture} from "@react-three/drei";
 import {useEffect} from "react";
+import {useFrame} from "@react-three/fiber";
+import {easing} from "maath";
 
 export default function Shirt() {
     const snap = useSnapshot(state)
@@ -9,6 +11,9 @@ export default function Shirt() {
 
     const logoTexture = useTexture(snap.logoDecal)
     const fullTexture = useTexture(snap.fullDecal)
+    useFrame((state, delta) => {
+        easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
+    })
 
     useEffect(() => {
         console.log(nodes)
@@ -19,26 +24,45 @@ export default function Shirt() {
         };
     }, []);
 
+    const stateString = JSON.stringify(snap)
+
     return (
-        <group>
+        <group
+            key={stateString}>
             <mesh
                 geometry={nodes.T_Shirt_male.geometry}
                 dispose={null}
                 material={materials.lambert1}
                 material-roughness={1}
                 dispose={null}
-            />
-            {snap.isFullTexture && (
-                <Decal
-                    position={[0, 0.04, 0]}
-                    rotation={[0, 0, 0]}
-                    scale={1}
-                    map={fullTexture}
-                />
+            >
 
-            )
-            }
-            <meshStandardMaterial/>
+
+                {snap.isFullTexture && (
+                    <Decal
+                        position={[0, 0.04, 0]}
+                        rotation={[0, 0, 0]}
+                        scale={1}
+                        map={fullTexture}
+                    />
+
+                )
+                }
+                {snap.isLogoTexture && (
+                    <Decal
+                        position={[0, 0.04, 0]}
+                        rotation={[0, 0, 0]}
+                        scale={1}
+                        map={logoTexture}
+                        map-anisotropy={16}
+                        depthTest={false}
+                        depthWrite={false}
+                    />
+
+                )
+                }
+                <meshStandardMaterial/>
+            </mesh>
         </group>
         // <primitive object={nodes.scene}/>
     )
