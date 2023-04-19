@@ -26,8 +26,7 @@ export default function Shirt() {
     const stateString = JSON.stringify(snap)
 
     return (
-        <group
-            key={stateString}>
+        <group key={stateString}>
             <mesh
                 castShadow
                 geometry={nodes.T_Shirt_male.geometry}
@@ -35,18 +34,15 @@ export default function Shirt() {
                 material-roughness={1}
                 dispose={null}
             >
-
-
                 {snap.isFullTexture && (
                     <Decal
-                        position={[0, 0.04, 0]}
+                        position={[0, 0, 0]}
                         rotation={[0, 0, 0]}
                         scale={1}
                         map={fullTexture}
                     />
+                )}
 
-                )
-                }
                 {snap.isLogoTexture && (
                     <Decal
                         position={[0, 0.04, 0.15]}
@@ -55,11 +51,9 @@ export default function Shirt() {
                         map={logoTexture}
                         map-anisotropy={16}
                         depthTest={false}
-                        depthWrite={false}
+                        depthWrite={true}
                     />
-
-                )
-                }
+                )}
             </mesh>
         </group>
         // <primitive object={nodes.scene}/>
