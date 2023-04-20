@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "./node_modules/.bin/vite --host",
+    "build": "./node_modules/.bin/vite build",
+    "preview": "./node_modules/.bin/vite preview"
   },
   "dependencies": {
     "@react-three/drei": "^9.65.3",
