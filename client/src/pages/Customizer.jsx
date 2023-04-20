@@ -9,6 +9,7 @@ import {useState} from "react";
 import ColorPicker from "../components/ColorPicker.jsx";
 import FilePicker from "../components/FilePicker.jsx";
 import {reader} from "../config/helpers.js";
+import AIPicker from "../components/AIPicker.jsx";
 
 export default function Customizer() {
 
@@ -65,8 +66,7 @@ export default function Customizer() {
             })
 
             const data = await response.json();
-
-            handleDecals(type, `data:image/png;base64,${data.photo}`)
+            handleDecals(type, `data:image/png;base64,${data.image}`)
         } catch (error) {
             alert(error)
         } finally {
